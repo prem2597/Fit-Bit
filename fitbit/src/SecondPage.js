@@ -40,6 +40,30 @@ class SecondPage extends React.Component {
         });
     }
 
+    onCal = (e) => {
+        e.preventDefault();
+        axios.get('https://api.fitbit.com/1/user/-/activities/calories/date/'+this.state.startDate+'/'+this.state.detailLevel+'d/1min.json', {
+            headers: {
+				      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMkJOQ1ciLCJzdWIiOiI4TUhUWUQiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJudXQgcnBybyByc2xlIiwiZXhwIjoxNTkzNjkyNDkyLCJpYXQiOjE1OTM2NjM2OTJ9.nC-Gv7iX-dCcNRIN4sUXXcyVIxB1jFLa4X2kNhzgj-A',
+            }
+        }).then((resp) => {
+            console.log(resp.data)
+            var array = resp.data["activities-calories-intraday"]["dataset"]
+            var str2 = 'level,mets,time,value';
+
+            for (var i = 0; i < array.length; i++) {
+                var line = '';
+                for (var index in array[i]) {
+                    if (line !== '') line += ','
+                    line += array[i][index];
+                }
+                str2 += '\r\n' + line ;
+            }
+
+            FileDownload(str2, 'details.csv');
+        });
+    }
+
     render() {
         return (
             <div>
@@ -48,8 +72,15 @@ class SecondPage extends React.Component {
                 </div>
                 <div style={{textAlign: "center", backgroundColor: "lightblue"}}>
                     <div className="createAccount">
-                        To see your heart rate download this csv file:
+                        To see the distance travelled download this csv file:
+                        {' '}
                         <Button type="Submit" onClick = {this.onheart} style={{backgroundColor: "orange"}}>download</Button>
+                    </div>
+                    <br />
+                    <div className="createAccount">
+                        To see the calories burned per day download this csv file:
+                        {' '}
+                        <Button type="Submit" onClick = {this.onCal} style={{backgroundColor: "orange"}}>download</Button>
                     </div>
                 </div>
             </div>
