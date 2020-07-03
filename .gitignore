@@ -12,5 +12,7 @@ fitbit/src/App.test.js
 fitbit/docs
 node_modules
 package-lock.json
+fitbit/src/config.js
+
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import FileDownload from 'js-file-download';
+import config from './config.js'
 
 class SecondPage extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class SecondPage extends React.Component {
         e.preventDefault();
         axios.get('https://api.fitbit.com/1/user/-/activities/distance/date/'+this.state.startDate+'/'+this.state.endDate+'/'+this.state.detailLevel+'min/time/'+this.state.startTime+'/'+this.state.endTime+'.json', {
             headers: {
-				      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMkJOQ1ciLCJzdWIiOiI4TUhUWUQiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJudXQgcnBybyByc2xlIiwiZXhwIjoxNTkzNjkyNDkyLCJpYXQiOjE1OTM2NjM2OTJ9.nC-Gv7iX-dCcNRIN4sUXXcyVIxB1jFLa4X2kNhzgj-A',
+				      'Authorization': 'Bearer ' + access_token,
             }
         }).then((resp) => {
             console.log(resp.data)
@@ -44,7 +45,7 @@ class SecondPage extends React.Component {
         e.preventDefault();
         axios.get('https://api.fitbit.com/1/user/-/activities/calories/date/'+this.state.startDate+'/'+this.state.detailLevel+'d/1min.json', {
             headers: {
-				      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMkJOQ1ciLCJzdWIiOiI4TUhUWUQiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJudXQgcnBybyByc2xlIiwiZXhwIjoxNTkzNjkyNDkyLCJpYXQiOjE1OTM2NjM2OTJ9.nC-Gv7iX-dCcNRIN4sUXXcyVIxB1jFLa4X2kNhzgj-A',
+				      'Authorization': 'Bearer ' + access_token,
             }
         }).then((resp) => {
             console.log(resp.data)
