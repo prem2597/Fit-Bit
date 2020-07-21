@@ -14,6 +14,7 @@ class FitBit extends React.Component {
       detailLevel: "",
       startTime: "",
       endTime: "",
+      token: "",
       viewPage: "FirstPage"
     }
   }
@@ -50,6 +51,16 @@ class FitBit extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    var url = window.location.href;
+    var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+    var userId = url.split("#")[1].split("=")[2].split("&")[0];
+    alert(access_token);
+    console.log(access_token);
+    console.log(userId);
+    this.setState({
+      token: access_token
+    })
+    
     if (this.state.startTime === '' || this.state.endTime === '' || this.state.startDate === '' || this.state.endDate === '' || this.state.detailLevel === '') {
       return
     }
@@ -66,6 +77,11 @@ class FitBit extends React.Component {
       <div>
         <div>
           <h1 style={{textAlign: "center"}}>My Fit Bit Details</h1>
+        </div>
+        <div>
+          <a
+            href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNC6&redirect_uri=http://localhost:3000/&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">Login to Fitbit
+          </a>
         </div>
         <div style={{backgroundColor: "lightblue", padding : 100, margin : 100, textAlign: "center"}}>
           <form>
